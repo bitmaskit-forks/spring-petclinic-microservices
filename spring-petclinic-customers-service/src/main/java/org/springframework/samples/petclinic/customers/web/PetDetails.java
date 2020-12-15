@@ -1,50 +1,63 @@
-/*
- * Copyright 2002-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.springframework.samples.petclinic.customers.web;
 
-import lombok.Data;
-
-import java.util.Date;
+import java.util.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.samples.petclinic.customers.model.Pet;
-import org.springframework.samples.petclinic.customers.model.PetType;
+import org.springframework.samples.petclinic.customers.model.*;
 
-/**
- * @author mszarlinski@bravurasolutions.com on 2016-12-05.
- */
-@Data
 class PetDetails {
+	private long id;
+	private String name;
+	private String owner;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthDate;
+	private PetType type;
 
-    private long id;
+	PetDetails(Pet pet) {
+		this.id = pet.getId();
+		this.name = pet.getName();
+		this.owner = pet.getOwner().getFirstName() + " " + pet.getOwner().getLastName();
+		this.birthDate = pet.getBirthDate();
+		this.type = pet.getType();
+	}
 
-    private String name;
+	public long getId() {
+		return id;
+	}
 
-    private String owner;
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthDate;
+	public String getName() {
+		return name;
+	}
 
-    private PetType type;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    PetDetails(Pet pet) {
-        this.id = pet.getId();
-        this.name = pet.getName();
-        this.owner = pet.getOwner().getFirstName() + " " + pet.getOwner().getLastName();
-        this.birthDate = pet.getBirthDate();
-        this.type = pet.getType();
-    }
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public PetType getType() {
+		return type;
+	}
+
+	public void setType(PetType type) {
+		this.type = type;
+	}
 }
